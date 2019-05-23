@@ -7,7 +7,7 @@ bikesharingweb:
       kubernetes.io/ingress.class: traefik-azds  # Dev Spaces-specific
       buildID: ""
     hosts:
-      - dev.bikesharingweb.5lrxwsdstk.sea.azds.io  # Assumes deployment to the 'dev' space
+      - dev.bikesharingweb.<REPLACE_ME_WITH_HOST_SUFFIX>  # Assumes deployment to the 'dev' space
 
 gateway:
   ingress:
@@ -15,4 +15,4 @@ gateway:
       kubernetes.io/ingress.class: traefik-azds  # Dev Spaces-specific
       buildID: ""
     hosts:
-      - dev.gateway.5lrxwsdstk.sea.azds.io  # Assumes deployment to the 'dev' space
+      - dev.gateway.<REPLACE_ME_WITH_HOST_SUFFIX>  # Assumes deployment to the 'dev' space
