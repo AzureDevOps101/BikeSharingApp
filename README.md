@@ -9,11 +9,22 @@
 1. Prep AKS
 
 ```shell
+
+## Create the resource group
 az group create --name MyResourceGroup --location southeastasia
 
-az aks create -g MyResourceGroup -n MyAKS --location southeastasia --node-vm-size Standard_DS2_v2 --node-count 1 --disable-rbac --generate-ssh-keys
+## Create AKS Cluster
+## BikeSharingApp need at least 3 nodes to run
+az aks create -g MyResourceGroup -n MyAKS --location southeastasia --node-vm-size Standard_DS2_v2 --node-count 3 --disable-rbac --generate-ssh-keys
 
+## Enbable Dev Space
 az aks use-dev-spaces -g MyResourceGroup -n MyAKS --space dev --yes
+## check 'Show hidden types' in MyResourceGroup and add current azure user into Owner role of the Microsoft.DevSpaces/controllers AIM list
+
+## Get kubeconfig to local machine in order to use kubectl
+az aks get-credentials -g MyResourceGroup -n MyAKS
+kubectl get nodes
+
 ```
 
 Add current azure user account into DevSpaceControllers' owner group
