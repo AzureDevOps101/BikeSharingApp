@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: {{ .Chart.Name }}-mongo
-        image: "mongo:3.4"
+        image: "azuredevops101.azurecr.cn/lib/mongo:3.4"
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 27017

@@ -1,8 +1,8 @@
-FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+FROM azuredevops101.azurecr.cn/microsoft/dotnet:2.1-aspnetcore-runtime AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM microsoft/dotnet:2.1-sdk AS build
+FROM azuredevops101.azurecr.cn/microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
 COPY ["app.csproj", "."]
 RUN dotnet restore "app.csproj"
