@@ -1,4 +1,4 @@
-FROM azuredevops101.azurecr.cn/lib/golang:1.8
+FROM golang:1.8
 
 # Bundle app source
 RUN mkdir /app

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: {{ .Chart.Name }}-sql
-        image: "azuredevops101.azurecr.cn/microsoft/mssql-server-linux"
+        image: "microsoft/mssql-server-linux"
         imagePullPolicy: IfNotPresent
         env:
           - name: ACCEPT_EULA

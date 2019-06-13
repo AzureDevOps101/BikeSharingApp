@@ -1,4 +1,4 @@
-FROM azuredevops101.azurecr.cn/lib/node:lts
+FROM node:lts
 ENV PORT 80
 EXPOSE 80
 
