@@ -28,6 +28,12 @@ var dbConnection = Connection.prototype; // Will be initialized below
 var tableName = process.env.sql_table || 'Users'
 var jsonColumnName = "JSON_F52E2B61-18A1-11d1-B105-00805F49916B"
 
+console.log('process.env.sql_server = ' + process.env.sql_server);
+console.log('process.env.sql_username = ' + process.env.sql_username);
+console.log('process.env.sql_password = ' + process.env.sql_password);
+console.log('process.env.sql_database = ' + process.env.sql_database);
+console.log('process.env.sql_table = ' + process.env.sql_table);
+
 var userSchema = {
     id: {
         presence: true

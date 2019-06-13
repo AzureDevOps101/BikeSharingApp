@@ -15,10 +15,20 @@ app.prepare()
         const server = express()
 
         server.get('/api/host', (req, res) => {
-            var apiHost = url.format({
-                protocol: req.protocol,
-                hostname: getApiUrl(req.get('host'))
-            });
+
+            // return local network if runing from http://localhost:{port}
+            // TODO: still need to work out how to allow any host name without using Azure Dev spaces
+            if (process.env.gateway_url.indexOf("localhost")>=0)
+            {
+                var apiHost = process.env.gateway_url;
+            }
+            else
+            {
+                var apiHost = url.format({
+                    protocol: req.protocol,
+                    hostname: getApiUrl(req.get('host'))
+                });
+            }           
 
             console.log("API_HOST = " + apiHost);
 
