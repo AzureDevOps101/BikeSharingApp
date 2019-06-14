@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  bikesharingweb:
+    image: azdspublic/bikesharing-bikesharingweb
+    build:
+      context: ./BikeSharingWeb
+      dockerfile: Dockerfile
+  gateway:
+    image: azdspublic/bikesharing-gateway
+    build:
+      context: ./Gateway
+      dockerfile: Dockerfile
+  bikes:
+    image: azdspublic/bikesharing-bikes
+    build:
+      context: ./Bikes
+      dockerfile: Dockerfile  
+  billing:
+    image: azdspublic/bikesharing-billing
+    build:
+      context: ./Billing
+      dockerfile: Dockerfile
+  bikesharing-populatedatabase:
+    image: azdspublic/bikesharing-populatedatabase
+    build:
+      context: ./PopulateDatabase
+      dockerfile: Dockerfile
+  reservation:
+    image: azdspublic/bikesharing-reservation
+    build:
+      context: ./Reservation
+      dockerfile: Dockerfile
+  reservationengine:
+    image: azdspublic/bikesharing-reservationengine
+    build:
+      context: ./ReservationEngine
+      dockerfile: Dockerfile
+  users:
+    image: azdspublic/bikesharing-users
+    build:
+      context: ./Users
+      dockerfile: Dockerfile
+  mongo:
+    image: azuredevops101.azurecr.cn/lib/mongo:3.4
+  sql:
+    image: azuredevops101.azurecr.cn/microsoft/mssql-server-linux
+  

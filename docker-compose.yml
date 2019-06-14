@@ -1,0 +1,125 @@
+version: '3'
+
+services:
+  bikesharingweb:
+    image: azdspublic/bikesharing-bikesharingweb
+    build:
+      context: ./BikeSharingWeb
+      dockerfile: Dockerfile
+    environment:
+      - "gateway_url=http://localhost:8081"
+    ports:
+      - "8080:80"
+    networks:
+      - bikesharingnetwork
+      
+  gateway:
+    image: azdspublic/bikesharing-gateway
+    build:
+      context: ./Gateway
+      dockerfile: Dockerfile
+    environment:
+      - "users_dnsname=users"
+      - "bikes_dnsname=bikes"
+      - "reservation_dnsname=reservation"
+      - "reservationengine_dnsname=reservationengine"
+      - "billing_dnsname=billing"
+    ports:
+      - "8081:80"
+    networks:
+      - bikesharingnetwork
+
+  bikes:
+    image: azdspublic/bikesharing-bikes
+    build:
+      context: ./Bikes
+      dockerfile: Dockerfile
+    environment:
+      - "mongo_connectionstring=mongodb://databases-mongo"
+      - "mongo_collection=bikes"
+    networks:
+      - bikesharingnetwork
+
+  billing:
+    image: azdspublic/bikesharing-billing
+    build:
+      context: ./Billing
+      dockerfile: Dockerfile
+    environment:
+      - "mongo_connectionstring=mongodb://databases-mongo"
+      - "mongo_dbname=billing"
+    networks:
+      - bikesharingnetwork
+
+  reservation:
+    image: azdspublic/bikesharing-reservation
+    build:
+      context: ./Reservation
+      dockerfile: Dockerfile
+    environment:
+      - "mongo_connectionstring=mongodb://databases-mongo"
+      - "mongo_dbname=resdb"
+      - "mongo_collection=reservation"
+    networks:
+      - bikesharingnetwork
+
+  reservationengine:
+    image: azdspublic/bikesharing-reservationengine
+    build:
+      context: ./ReservationEngine
+      dockerfile: Dockerfile
+    environment:
+      - "bikes_dnsname=bikes"
+      - "billing_dnsname=billing"
+      - "mongo_connectionstring=mongodb://databases-mongo"
+      - "mongo_dbname=resdb"
+      - "mongo_collection=reservation"
+    networks:
+      - bikesharingnetwork
+
+  users:
+    image: azdspublic/bikesharing-users
+    build:
+      context: ./Users
+      dockerfile: Dockerfile
+    environment:
+      - sql_username=sa
+      - sql_password=P2ssw0rd
+      - "sql_server=databases-sql"
+      - "sql_database=tempdb"
+      - "sql_table=myTable"
+    restart: always
+    networks:
+      - bikesharingnetwork
+
+  populatedatabase:
+    image: azdspublic/bikesharing-populatedatabase
+    build:
+      context: ./PopulateDatabase
+      dockerfile: Dockerfile
+    environment:
+      - "gateway_dnsname=gateway"
+      - "users_dnsname=users"
+      - "bikes_dnsname=bikes"
+    networks:
+      - bikesharingnetwork
+
+  databases-mongo:
+    image: azuredevops101.azurecr.cn/lib/mongo:3.4
+    ports:
+      - "27017:27017"
+    networks:
+      - bikesharingnetwork
+
+  databases-sql:
+    image: azuredevops101.azurecr.cn/microsoft/mssql-server-linux
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=P2ssw0rd
+    ports:
+      - "1433:1433"
+    networks:
+      - bikesharingnetwork
+
+networks:
+  bikesharingnetwork:

@@ -1,10 +1,31 @@
 # Bike Sharing Sample: Iteratively Develop and Debug Microservices in Kubernetes
 
 ## Quickstart
+
 [Quickstart: Team development on Kubernetes using Azure Dev Spaces](https://docs.microsoft.com/en-us/azure/dev-spaces/quickstart-team-development).
 
+## Architecture 
 
-## Demo Script
+BikeSharingApp consists with 5 backend services, 1 service gateway and 1 web frontend. The [users] service is using a sqlserver-linux database as it's database, and the rest services [billing] [reservation] and [reservationengine] are all storing data in a MongoDB database. 
+
+There is also a [PopulateDatabase] job will be running when the whole system starts up and populate data into the databases, this job will finish and exit when the population job is done. This job is not showing on the following diagram.
+
+![](./BikeSharingApp-Arc.png)
+
+## Demo 1 - Run application locally
+
+Run the following scripts to build and run the whole system on your local machine. You need to assign at least 2 cpu cores and 4G Ram for your docker environment. 
+
+```shell
+docker-compose -p bikesharingapp build
+docker-compose up
+```
+Then open http://localhost:8080
+
+![](./home-screen.png)
+
+
+## Demo 2 - Use Azure Kubernetes Services and Dev Space to debug application
 
 1. Prep AKS
 
@@ -66,10 +87,22 @@ azds space select -n dev/azureuser1 -y
 azds space select -n dev/azureuser2 -y
 ```
 
-Switch to `dev/azureuser2` then use vscode open /BikeSharingWeb/ folder
+4. Debug the application using Dev Space
+
+Switch to `dev/azureuser2` then use another vscode window to open /BikeSharingWeb/ folder
 
 make sure you have Azure Dev Space extension installed
 
 Press F1 and select "Prepare configuration files for Dev Spaces"
 
 in vscode, press debug button.
+
+5. Delete the cluster
+
+```shell
+
+## Delete AKS Cluster
+az aks delete -g MyResourceGroup -n MyAKS
+```
+
+Happy Coding!
