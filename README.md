@@ -1,5 +1,7 @@
 # Bike Sharing Sample: Iteratively Develop and Debug Microservices in Kubernetes
 
+[![Build Status](https://dev.azure.com/demo-devops101/BikeSharingApp/_apis/build/status/AzureDevOps101.BikeSharingApp?branchName=master)](https://dev.azure.com/demo-devops101/BikeSharingApp/_build/latest?definitionId=63&branchName=master)
+
 ## Quickstart
 
 [Quickstart: Team development on Kubernetes using Azure Dev Spaces](https://docs.microsoft.com/en-us/azure/dev-spaces/quickstart-team-development).
